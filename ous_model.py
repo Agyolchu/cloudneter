@@ -20,11 +20,8 @@ class CloudDataGenerator:
         allowed_positions = list(range(size2))
         ll = list(range(size1))
         while len(ll) > 0:
-            print("l1", ll)
             idx_i = secure_random.choice(ll)
             idx_k = random.randint(0, len(allowed_positions) - 1)
-            print(idx_k, idx_i)
-
             if parts[idx_i] <= storage[idx_k]:
                 x[idx_i, idx_k] = 1
                 storage[idx_k] = storage[idx_k] - parts[idx_i]
@@ -34,7 +31,6 @@ class CloudDataGenerator:
                 if parts[idx_i] <= storage[idx_k]:
                     x[idx_i, idx_k] = 1
                     storage[idx_k] = storage[idx_k] - parts[idx_i]
-                    print("storage", storage)
                 else:
                     x[idx_i, idx_k] = 0
             ll.remove(idx_i)
@@ -102,8 +98,8 @@ class CloudDataGenerator:
                 i += 1
                 allcost.append(new_cost)
             T = T * alpha
-        print("minimum cost:" + str(min(allcost)))
-        return sol, old_cost
+
+        return sol, min(allcost)
 
     def main(self, costem):
         sol = self.initial_solution()
@@ -121,5 +117,6 @@ if __name__ == '__main__':
     print("packet size:", a)
     print("bucket size", b)
     cloudy = CloudDataGenerator(a, b)
-    new_m = cloudy.main(costem)
-    print(new_m)
+    storages_for_upload, minimum_cost = cloudy.main(costem)
+    print("Storages for Uplaoding:", storages_for_upload)
+    print("Minimum Cost For Given Parameters:", minimum_cost)
