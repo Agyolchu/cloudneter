@@ -111,6 +111,8 @@ class CloudDataGenerator:
 
 
 if __name__ == '__main__':
+    # Parameters can be used for testing algorithm of the model
+
     a = np.array((4, 4, 4, 4, 4))
     b = np.array((6, 2, 8, 6, 9))
     costem = np.array(((0.6, 0.2, 0.1, 0.5, 0.1), (0.2, 0.3, 0.1, 0.2, 0.1), (0.2, 0.3, 0.1, 0.2, 0.1),
@@ -118,6 +120,6 @@ if __name__ == '__main__':
                        (0.2, 0.3, 0.8, 0.2, 0.1), (0.2, 0.3, 0.1, 0.2, 0.71)))
     print("packet size:", a)
     print("bucket size", b)
-    tt = CloudDataGenerator(a, b)
-    new_m = tt.main(costem)
+    cloudy = CloudDataGenerator(a, b)
+    new_m = cloudy.main(costem)
     print(new_m)
