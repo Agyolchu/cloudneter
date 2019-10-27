@@ -4,7 +4,7 @@ import random
 
 
 class CloudDataGenerator:
-    def __init__(self,a, b):
+    def __init__(self, a, b):
         self.a = a
         self.b = b
         self.size1 = a.shape[0]
@@ -19,7 +19,6 @@ class CloudDataGenerator:
         x = np.zeros((size1, size2))
         allowed_positions = list(range(size2))
         ll = list(range(size1))
-        print("Ll", ll)
         while len(ll) > 0:
             print("l1", ll)
             idx_i = secure_random.choice(ll)
@@ -35,7 +34,7 @@ class CloudDataGenerator:
                 if parts[idx_i] <= storage[idx_k]:
                     x[idx_i, idx_k] = 1
                     storage[idx_k] = storage[idx_k] - parts[idx_i]
-                    print("storage",storage)
+                    print("storage", storage)
                 else:
                     x[idx_i, idx_k] = 0
             ll.remove(idx_i)
@@ -93,14 +92,11 @@ class CloudDataGenerator:
                 b = np.array([elem for elem in self.b])
                 size1 = a.shape[0]
                 size2 = a.shape[0]
-                print('birinci')
                 new_sol = self.neghboar(sol, a, b, size1, size2)
-                print('ikinci')
                 new_cost = self.cost(costf, new_sol)
                 acceptance_prob = self.acceptance_probability(old_cost, new_cost, T)
-                print('ucuncu')
                 if acceptance_prob > random.random():
-                   if new_cost < old_cost:
+                    if new_cost < old_cost:
                         sol = new_sol
                         old_cost = new_cost
                 i += 1
@@ -110,10 +106,9 @@ class CloudDataGenerator:
         return sol, old_cost
 
     def main(self, costem):
-        print('basla')
         sol = self.initial_solution()
-        print('sifinci')
         return self.simulated_annealing(sol, costem)
+
 
 if __name__ == '__main__':
     a = np.array((4, 4, 4, 4, 4))
@@ -123,6 +118,6 @@ if __name__ == '__main__':
                        (0.2, 0.3, 0.8, 0.2, 0.1), (0.2, 0.3, 0.1, 0.2, 0.71)))
     print("packet size:", a)
     print("bucket size", b)
-    tt = CloudDataGenerator(a,b)
+    tt = CloudDataGenerator(a, b)
     new_m = tt.main(costem)
     print(new_m)
